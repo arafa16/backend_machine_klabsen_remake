@@ -5,6 +5,12 @@ const session = require('express-session');
 const fileUpload = require('express-fileupload')
 const SequelizeStore = require('connect-session-sequelize');
 const db = require('./models/index.js');
+const cron = require('node-cron');
+
+//controller
+const {
+    getMesinAbsen
+} = require('./controllers/inout_cron.controller.js');
 
 dotenv.config();
 
@@ -35,7 +41,10 @@ app.use(cors({
 app.use(express.json());
 app.use(fileUpload());
 
-//router
+//cron
+cron.schedule('*/1 * * * *', function() {
+    getMesinAbsen();
+});
 
 app.listen(process.env.BACKEND_PORT, ()=>{
     console.log(`server running at port ${process.env.BACKEND_PORT}`);
