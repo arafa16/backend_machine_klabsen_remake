@@ -9,7 +9,6 @@ const {
 const date = require('date-and-time');
 
 const getDataFinger = async(ip, day) => {
-    console.log('data finger', ip, day);
 
     try {
         const datas = await FingerprintSolution.download(ip, []);
@@ -54,7 +53,6 @@ const getDataFinger = async(ip, day) => {
 
             //cari data user
             const user = await findUserByPin({absen_id:data.pin});
-            console.log('user', user.name)
 
             const result = await executionCodeMasuk({
                 user:user,
