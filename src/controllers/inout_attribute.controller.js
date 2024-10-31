@@ -42,7 +42,7 @@ const findUserByPin = async(datas) =>{
                 attributes:['id','code']
             }
         ],
-        attributes:['id','absen_id']
+        attributes:['id','absen_id', 'jam_operasional_group_id']
     });
 
     return result
@@ -128,16 +128,23 @@ const findInOut = async(datas) =>{
 }
 
 const findJamOperasionals = async(datas) =>{
+    let jam_operasional_result = null;
 
-    const result = await jamOperasionalModel.findOne({
-        where:{
-            jam_masuk:{ [Op.gte]: datas.time_format },
-            jam_operasional_group_id:datas.jam_operasional_group_id,
-            is_active:1
+    if(datas.jam_operasional_group_id !== null){
+        const result = await jamOperasionalModel.findOne({
+            where:{
+                jam_masuk:{ [Op.gte]: datas.time_format },
+                jam_operasional_group_id:datas.jam_operasional_group_id,
+                is_active:1
+            }
+        })
+    
+        if(result !== null){
+            jam_operasional_result = result
         }
-    })
+    }
 
-    return result
+    return jam_operasional_result
 }
 
 const findJamOperasionalGroup = async(datas) => {
@@ -174,7 +181,7 @@ const findJamOperasionalsTerakhir = async(datas) => {
             jam_operasional_group_id:datas.jam_operasional_group_id,
             is_active:1
         },
-        order: [ [ 'created_at', 'DESC' ]]
+        order: [ [ 'code', 'DESC' ]]
     });
 
     return result
@@ -229,6 +236,33 @@ const findDataOutDouble = async(datas) => {
     });
 
     if(result.length > 1){
+        await result[0].destroy();
+    }
+
+    return result
+}
+
+const findDataInDouble = async(datas) => {
+    const result = await inOutModel.findAll({
+        where:{
+            user_id:datas.user_id,
+            tanggal_mulai:
+            {
+                [Op.and]: {
+                    [Op.gte]: datas.date_format + ' 00:00:00',
+                    [Op.lte]: datas.date_format + ' 23:59:59',
+                }
+            }
+        },
+        include:{
+            model:tipeAbsenModel,
+            where:{
+                code: { [Op.in]: datas.code_masuk}
+            }
+        }
+    });
+
+    if(result.length > 1){
         await result[1].destroy();
     }
 
@@ -246,6 +280,7 @@ const uploadAbsen = async(datas) =>{
         pelanggaran_id:datas.pelanggaran_id,
         status_inout_id:datas.status_inout_id,
         jam_operasional_id:datas.jam_operasional_id,
+        is_active:datas.is_active
     });
 
     return result
@@ -830,8 +865,14 @@ const executionCodeShiftPulang = async(datas) => {
 
 module.exports = {
     findUserByPin,
-    executionCodeMasuk,
-    executionCodePulang,
-    executionCodeShiftMasuk,
-    executionCodeShiftPulang
+    findTipeAbsen,
+    findIn,
+    findInOut,
+    findJamOperasionals,
+    findJamOperasionalGroup,
+    findJamOperasionalsTerakhir,
+    findDataTidakAbsenDouble,
+    findDataInDouble,
+    findDataOutDouble,
+    uploadAbsen
 }

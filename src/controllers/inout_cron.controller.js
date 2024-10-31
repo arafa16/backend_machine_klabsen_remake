@@ -7,7 +7,11 @@ const {
 
 const getMesinAbsen = async() => {
 
-    const mesin = await mesinAbsenModel.findAll();
+    const mesin = await mesinAbsenModel.findAll({
+        where:{
+            is_active:1
+        }
+    });
 
     try {
         for(let i = 0; i < mesin.length; i++){
