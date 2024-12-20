@@ -1,7 +1,7 @@
 
 module.exports = {
     apps : [{
-            name    : "klabsen_api_mecine_remake",
+            name    : "backend_mechine",
             script  : "npm run dev"
     }]
 }
