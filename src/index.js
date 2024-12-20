@@ -42,7 +42,7 @@ app.use(express.json());
 app.use(fileUpload());
 
 //cron
-cron.schedule('*/6 * * * *', function() {
+cron.schedule(process.env.CRON_TIME, function() {
     getMesinAbsen();
 });
 
