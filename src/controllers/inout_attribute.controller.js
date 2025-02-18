@@ -34,7 +34,10 @@ const findUserByPin = async(datas) =>{
 
     const result = await userModel.findOne({
         where:{
-            absen_id:datas.absen_id
+            absen_id:datas.absen_id,
+            jam_operasional_group_id:{
+                [Op.not]: null, // Like: jam_operasional_group_id IS NOT NULL
+            },
         },
         include:[
             {

@@ -11,6 +11,7 @@ module.exports = {
     database: process.env.DATABASE_NAME,
     define: {
       underscored: true,
-    }
+    },
+    logging: false
   },
 };
