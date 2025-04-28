@@ -240,7 +240,7 @@ const findDataOutDouble = async(datas) => {
 
 
     if(result.length > 1){
-        console.log("result", result)
+        console.log("result delete double", result.id, result.user_id)
 
         await result[0].destroy();
     }
