@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       in_out.belongsTo(models.jam_operasional,{
         foreignKey:"jam_operasional_id"
       });
-      in_out.hasMany(models.koreksi);
+      in_out.hasOne(models.koreksi);
     }
   }
   in_out.init({

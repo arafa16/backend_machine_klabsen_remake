@@ -61,10 +61,10 @@ const getDataFinger = async(ip, day) => {
             let user = await findUserByPin({absen_id:data.pin});
             let tipeAbsen = await findTipeAbsen({code:data.status});
 
-            console.log(data.pin, user && user.name, tipeAbsen.name, date_time_format);
-
             if(user !== null && tipeAbsen !== null){
-                
+
+                console.log(data.pin, user && user.name, tipeAbsen.name, date_time_format);
+
                 let inOut = await findInOut({ 
                     user_id:user.id,
                     date_format:date_format,
@@ -139,10 +139,10 @@ const getDataFinger = async(ip, day) => {
 
             const tidakAbsen = await findTipeAbsen({code:11})
 
-            console.log(data.pin, user && user.name, tipeAbsen.name, date_time_format);
-
-
             if(user !== null && tipeAbsen !== null && tidakAbsen !== null){
+
+                console.log(data.pin, user && user.name, tipeAbsen.name, date_time_format);
+
                 let inOut = await findInOut({ 
                     user_id:user.id,
                     date_format:date_format,
@@ -341,9 +341,10 @@ const getDataFinger = async(ip, day) => {
 
             const tidakAbsen = await findTipeAbsen({code:11})
 
-            console.log(data.pin, user && user.name, tipeAbsen.name, date_time_format);
-
             if(user !== null && tipeAbsen !== null && tidakAbsen !== null){
+
+                console.log(data.pin, user && user.name, tipeAbsen.name, date_time_format);
+
                 let inOut = await findInOut({ 
                     user_id:user.id,
                     date_format:date_format,
@@ -452,6 +453,7 @@ const getDataFinger = async(ip, day) => {
                 }
             }
         }))
+
     } catch (error) {
         console.log(error.message)
     }

@@ -6,6 +6,7 @@ const {
     status_inout:statusInoutModel,
     jam_operasional:jamOperasionalModel,
     jam_operasional_group:jamOperasionalGroupModel,
+    koreksi:koreksiModel,
 } = require('../models/index.js');
 const {Op} = require('sequelize');
 const date = require('date-and-time');
@@ -230,19 +231,28 @@ const findDataOutDouble = async(datas) => {
                 }
             }
         },
-        include:{
-            model:tipeAbsenModel,
-            where:{
-                code: { [Op.in]: datas.code_pulang}
-            }
-        }
+        include:
+            [
+                {
+                    model:tipeAbsenModel,
+                    where:{
+                        code: { [Op.in]: datas.code_pulang}
+                    }
+                },
+                {
+                    model:koreksiModel
+                }
+            ]
     });
 
 
     if(result.length > 1){
-        console.log("result delete double", result.id, result.user_id)
-
-        await result[0].destroy();
+        result.forEach(async element => {
+            if(element.koreksi === null){
+                const tryDestroy = await element.destroy();
+                console.log('try destroy', tryDestroy.id)
+            }
+        });
     }
 
     return result
@@ -260,16 +270,27 @@ const findDataInDouble = async(datas) => {
                 }
             }
         },
-        include:{
-            model:tipeAbsenModel,
-            where:{
-                code: { [Op.in]: datas.code_masuk}
-            }
-        }
+        include:
+            [
+                {
+                    model:tipeAbsenModel,
+                    where:{
+                        code: { [Op.in]: datas.code_masuk}
+                    }
+                },
+                {
+                    model:koreksiModel
+                }
+            ]
     });
 
     if(result.length > 1){
-        await result[1].destroy();
+        result.forEach(async element => {
+            if(element.koreksi === null){
+                const tryDestroy = await element.destroy();
+                console.log('try destroy', tryDestroy.id)
+            }
+        });
     }
 
     return result
