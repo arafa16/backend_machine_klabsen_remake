@@ -45,7 +45,7 @@ const findUserByPin = async(datas) =>{
                 attributes:['id','name','code']
             }
         ],
-        attributes:['id','absen_id', 'jam_operasional_group_id']
+        attributes:['id','name','absen_id', 'jam_operasional_group_id']
     });
 
     return result
