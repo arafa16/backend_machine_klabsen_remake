@@ -247,12 +247,27 @@ const findDataOutDouble = async(datas) => {
 
 
     if(result.length > 1){
-        result.forEach(async element => {
-            if(element.koreksi === null){
-                const tryDestroy = await element.destroy();
-                console.log('try destroy', tryDestroy.id)
-            }
-        });
+        // result.forEach(async element => {
+        //     if(element.koreksi === null){
+        //         const tryDestroy = await element.destroy();
+        //         console.log('try destroy', tryDestroy.id)
+        //     }
+        // });
+
+
+        if(await result[0].koreksi === null){
+
+            console.log("result delete double", result[0].id)
+
+            await result[0].destroy();
+
+
+        }else{
+            console.log("result delete double", result[0].id)
+
+            await result[1].destroy();
+        }
+
     }
 
     return result
@@ -285,12 +300,25 @@ const findDataInDouble = async(datas) => {
     });
 
     if(result.length > 1){
-        result.forEach(async element => {
-            if(element.koreksi === null){
-                const tryDestroy = await element.destroy();
-                console.log('try destroy', tryDestroy.id)
-            }
-        });
+        // result.forEach(async element => {
+        //     if(element.koreksi === null){
+        //         const tryDestroy = await element.destroy();
+        //         console.log('try destroy', tryDestroy.id)
+        //     }
+        // });
+
+        if(await result[0].koreksi === null){
+
+            console.log("result delete double", result[0].id)
+
+            await result[0].destroy();
+
+
+        }else{
+            console.log("result delete double", result[0].id)
+            
+            await result[1].destroy();
+        }
     }
 
     return result
