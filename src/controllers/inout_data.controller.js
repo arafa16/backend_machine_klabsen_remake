@@ -57,6 +57,7 @@ const getDataFinger = async(ip, day) => {
             let date_format = date.format(get_date, 'YYYY-MM-DD');
             let date_time_format = date.format(get_date, 'YYYY-MM-DD HH:mm:ss');
 
+            console.log(data.pin);
             //cari data user
             let user = await findUserByPin({absen_id:data.pin});
             let tipeAbsen = await findTipeAbsen({code:data.status});
@@ -132,6 +133,8 @@ const getDataFinger = async(ip, day) => {
             const time_format = date.format(get_date, 'HH:mm:ss');
             const date_format = date.format(get_date, 'YYYY-MM-DD');
             const date_time_format = date.format(get_date, 'YYYY-MM-DD HH:mm:ss');
+
+            console.log(data.pin);
 
             //cari data user
             let user = await findUserByPin({absen_id:data.pin});
@@ -254,6 +257,8 @@ const getDataFinger = async(ip, day) => {
             const date_format = date.format(get_date, 'YYYY-MM-DD');
             const date_time_format = date.format(get_date, 'YYYY-MM-DD HH:mm:ss');
 
+            console.log(data.pin);
+
             //cari data user
             let user = await findUserByPin({absen_id:data.pin});
             let tipeAbsen = await findTipeAbsen({code:data.status});
@@ -335,6 +340,8 @@ const getDataFinger = async(ip, day) => {
             const date_format = date.format(get_date, 'YYYY-MM-DD');
             const date_time_format = date.format(get_date, 'YYYY-MM-DD HH:mm:ss');
 
+            console.log(data.pin);
+            
             //cari data user
             let user = await findUserByPin({absen_id:data.pin});
             let tipeAbsen = await findTipeAbsen({code:data.status});
