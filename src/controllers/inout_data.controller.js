@@ -57,12 +57,11 @@ const getDataFinger = async(ip, day) => {
             let date_format = date.format(get_date, 'YYYY-MM-DD');
             let date_time_format = date.format(get_date, 'YYYY-MM-DD HH:mm:ss');
 
-            console.log(data.pin);
             //cari data user
             let user = await findUserByPin({absen_id:data.pin});
             let tipeAbsen = await findTipeAbsen({code:data.status});
 
-            console.log(user.name, tipeAbsen.name, date_time_format);
+            console.log(data.pin, user && user.name, tipeAbsen.name, date_time_format);
 
             if(user !== null && tipeAbsen !== null){
                 
@@ -134,15 +133,13 @@ const getDataFinger = async(ip, day) => {
             const date_format = date.format(get_date, 'YYYY-MM-DD');
             const date_time_format = date.format(get_date, 'YYYY-MM-DD HH:mm:ss');
 
-            console.log(data.pin);
-
             //cari data user
             let user = await findUserByPin({absen_id:data.pin});
             let tipeAbsen = await findTipeAbsen({code:data.status});
 
             const tidakAbsen = await findTipeAbsen({code:11})
 
-            console.log(user.name, tipeAbsen.name, date_time_format);
+            console.log(data.pin, user && user.name, tipeAbsen.name, date_time_format);
 
 
             if(user !== null && tipeAbsen !== null && tidakAbsen !== null){
@@ -257,13 +254,11 @@ const getDataFinger = async(ip, day) => {
             const date_format = date.format(get_date, 'YYYY-MM-DD');
             const date_time_format = date.format(get_date, 'YYYY-MM-DD HH:mm:ss');
 
-            console.log(data.pin);
-
             //cari data user
             let user = await findUserByPin({absen_id:data.pin});
             let tipeAbsen = await findTipeAbsen({code:data.status});
 
-            console.log(user.name, tipeAbsen.name, date_time_format);
+            console.log(data.pin, user && user.name, tipeAbsen.name, date_time_format);
 
 
             if(user !== null && tipeAbsen !== null){
@@ -340,15 +335,13 @@ const getDataFinger = async(ip, day) => {
             const date_format = date.format(get_date, 'YYYY-MM-DD');
             const date_time_format = date.format(get_date, 'YYYY-MM-DD HH:mm:ss');
 
-            console.log(data.pin);
-            
             //cari data user
             let user = await findUserByPin({absen_id:data.pin});
             let tipeAbsen = await findTipeAbsen({code:data.status});
 
             const tidakAbsen = await findTipeAbsen({code:11})
 
-            console.log(user.name, tipeAbsen.name, date_time_format);
+            console.log(data.pin, user && user.name, tipeAbsen.name, date_time_format);
 
             if(user !== null && tipeAbsen !== null && tidakAbsen !== null){
                 let inOut = await findInOut({ 
