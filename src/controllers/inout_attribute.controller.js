@@ -238,9 +238,10 @@ const findDataOutDouble = async(datas) => {
         }
     });
 
-    console.log("result", result)
 
     if(result.length > 1){
+        console.log("result", result)
+
         await result[0].destroy();
     }
 
