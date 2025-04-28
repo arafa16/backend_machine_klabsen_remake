@@ -42,7 +42,7 @@ const findUserByPin = async(datas) =>{
         include:[
             {
                 model:jamOperasionalGroupModel,
-                attributes:['id','code']
+                attributes:['id','name','code']
             }
         ],
         attributes:['id','absen_id', 'jam_operasional_group_id']
