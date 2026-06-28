@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class jam_operasional_group extends Model {
     /**
@@ -11,21 +9,28 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      jam_operasional_group.hasMany(models.jam_operasional, {
+        foreignKey: "jam_operasional_group_id",
+        as: "jam_operasional",
+      });
     }
   }
-  jam_operasional_group.init({
-    uuid: {
-      type: DataTypes.STRING,
-      defaultValue: DataTypes.UUIDV4
+  jam_operasional_group.init(
+    {
+      uuid: {
+        type: DataTypes.STRING,
+        defaultValue: DataTypes.UUIDV4,
+      },
+      name: DataTypes.STRING,
+      keterangan: DataTypes.STRING,
+      code: DataTypes.INTEGER,
+      is_active: DataTypes.BOOLEAN,
     },
-    name: DataTypes.STRING,
-    keterangan: DataTypes.STRING,
-    code: DataTypes.INTEGER,
-    is_active: DataTypes.BOOLEAN
-  }, {
-    sequelize,
-    modelName: 'jam_operasional_group',
-    underscored: true,
-  });
+    {
+      sequelize,
+      modelName: "jam_operasional_group",
+      underscored: true,
+    },
+  );
   return jam_operasional_group;
 };
