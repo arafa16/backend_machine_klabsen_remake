@@ -1,6 +1,6 @@
 ## [Unreleased](https://github.com/arafa16/backend_machine_klabsen_remake/compare/1.2.0...main)
 
-## [1.2.0](https://github.com/arafa16/backend_machine_klabsen_remake/releases/tag/1.2.0) - 2026-04-23
+## [1.2.0](https://github.com/arafa16/backend_machine_klabsen_remake/releases/tag/1.2.0) - 2026-06-29
 
 - build: update version 1.1.0 to 1.2.0 by [Ara Fa Adri](https://github.com/arafa16) in [#dbd6431](https://github.com/arafa16/backend_machine_klabsen_remake/commit/dbd6431f24ab7d00498fbfad8c64bc2ae7ac9f30).
 
