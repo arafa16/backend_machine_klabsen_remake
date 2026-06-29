@@ -473,6 +473,7 @@ async function processSetupDataInToUpload(datas) {
         user_id: item.user_id,
         tipe_absen_id: item.tipe_absen.id,
         tanggal_mulai: date_time_format,
+        tanggal_selesai: date_time_format,
         pelanggaran_id: jam_operasional_checked.pelanggaran_id,
         status_inout_id: 1,
         jam_operasional_id: jam_operasional_checked.jam_operasional.id,
@@ -487,6 +488,7 @@ async function processSetupDataInToUpload(datas) {
           user_id: item.user_id,
           tipe_absen_id: item.tipe_absen.id,
           tanggal_mulai: date_time_format,
+          tanggal_selesai: date_time_format,
           pelanggaran_id: jam_operasional_shift_checked.pelanggaran_id,
           status_inout_id: 1,
           jam_operasional_id:
@@ -556,6 +558,7 @@ async function processSetupDataOutToUpload(datas) {
           user_id: item.user_id,
           tipe_absen_id: findTipeTidakAbsen.id,
           tanggal_mulai: date_format + " 00:00:00",
+          tanggal_selesai: date_format + " 00:00:00",
           pelanggaran_id: pelanggaran_id,
           status_inout_id: 1,
           jam_operasional_id: jam_operasional_id,
@@ -567,6 +570,7 @@ async function processSetupDataOutToUpload(datas) {
         user_id: item.user_id,
         tipe_absen_id: item.tipe_absen.id,
         tanggal_mulai: date_time_format,
+        tanggal_selesai: date_time_format,
         pelanggaran_id: pelanggaran_id,
         status_inout_id: 1,
         jam_operasional_id: jam_operasional_id,
@@ -582,6 +586,7 @@ async function processSetupDataOutToUpload(datas) {
           user_id: item.user_id,
           tipe_absen_id: item.tipe_absen.id,
           tanggal_mulai: date_time_format,
+          tanggal_selesai: date_time_format,
           pelanggaran_id: jam_operasional_shift_checked.pelanggaran_id,
           status_inout_id: 1,
           jam_operasional_id:
@@ -619,6 +624,7 @@ async function processSetupDataInShiftToUpload(datas) {
       user_id: item.user_id,
       tipe_absen_id: item.tipe_absen.id,
       tanggal_mulai: date_time_format,
+      tanggal_selesai: date_time_format,
       pelanggaran_id: jam_operasional_checked.pelanggaran_id,
       status_inout_id: 1,
       jam_operasional_id: jam_operasional_checked.jam_operasional.id,
@@ -644,6 +650,7 @@ async function processSetupDataOutShiftToUpload(datas) {
       user_id: item.user_id,
       tipe_absen_id: item.tipe_absen.id,
       tanggal_mulai: date_time_format,
+      tanggal_selesai: date_time_format,
       pelanggaran_id: jam_operasional_checked.pelanggaran_id,
       status_inout_id: 1,
       jam_operasional_id: jam_operasional_checked.jam_operasional.id,
@@ -940,7 +947,7 @@ const getDataFingerWithCronTime = async (req, res) => {
 
     console.log("finished process...");
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
   }
 };
 
