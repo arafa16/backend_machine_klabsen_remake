@@ -890,6 +890,60 @@ const getDataFingerWithCron = async (req, res) => {
   }
 };
 
+const getDataFingerWithCronTime = async (req, res) => {
+  try {
+    const mesin = await mesinAbsenModel.findAll({
+      where: {
+        is_active: 1,
+      },
+    });
+
+    const result = [];
+
+    for (const item of mesin) {
+      try {
+        console.log("start", item.ip_mesin);
+
+        const endDate = new Date();
+        const startDate = new Date(endDate);
+        startDate.setDate(startDate.getDate() - item.day);
+
+        const start_date = date.format(startDate, "YYYY-MM-DD");
+        const end_date = date.format(endDate, "YYYY-MM-DD");
+
+        await processDataCoreFinger({
+          ip_mesin: item.ip_mesin,
+          start_date,
+          end_date,
+        });
+
+        result.push({
+          lokasi: item.name,
+          ip_mesin: item.ip_mesin,
+          status: "success",
+          start_date,
+          end_date,
+        });
+
+        console.log("stop", item.ip_mesin);
+      } catch (error) {
+        console.log("error", error.message);
+        result.push({
+          lokasi: item.name,
+          ip_mesin: item.ip_mesin,
+          status: "error",
+          message: error.message,
+        });
+        continue;
+      }
+    }
+
+    console.log("finished process...");
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const getDataFinger = async (req, res) => {
   const { ip_mesin, start_date, end_date } = req.query;
 
@@ -950,4 +1004,5 @@ const getDataFinger = async (req, res) => {
 module.exports = {
   getDataFinger,
   getDataFingerWithCron,
+  getDataFingerWithCronTime,
 };

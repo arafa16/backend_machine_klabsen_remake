@@ -12,6 +12,7 @@ const { getMesinAbsen } = require("./controllers/inout_cron.controller.js");
 const {
   getDataFinger,
   getDataFingerWithCron,
+  getDataFingerWithCronTime,
 } = require("./controllers/finger.controller.js");
 
 dotenv.config();
@@ -53,7 +54,7 @@ app.get("/cron", getDataFingerWithCron);
 //cron
 cron.schedule(process.env.CRON_TIME, function () {
   // getMesinAbsen();
-  getDataFingerWithCron();
+  getDataFingerWithCronTime();
 });
 
 app.listen(process.env.BACKEND_PORT, () => {
