@@ -211,30 +211,34 @@ async function processFilterData(datas) {
   // data in
   await Promise.all(
     filteredDataIn.map(async (item) => {
-      const findUser = await processFindUserByPin(item.pin);
+      try {
+        const findUser = await processFindUserByPin(item.pin);
 
-      const findTypeAbsen = await processFindTipeAbsenByCode(item.status);
+        const findTypeAbsen = await processFindTipeAbsenByCode(item.status);
 
-      if (findUser === null) {
-        console.log("find user tidak ditemukan ", item.pin);
-      } else if (findUser !== null) {
-        dataIn.push({
-          user_id: findUser?.id,
-          absen_id: findUser?.absen_id,
-          name: findUser.name,
-          jam_operasional_group_id: findUser?.jam_operasional_group_id,
-          jam_operasional_group_code: findUser?.jam_operasional_group?.code,
-          jam_operasional_group: findUser?.jam_operasional_group?.name,
-          tipe_absen: findTypeAbsen,
-          time: item.time,
-          jam_operasional:
-            findUser?.jam_operasional_group?.jam_operasional?.map((jam) => ({
-              name: jam.name,
-              code: jam.code,
-              jam_masuk: jam.jam_masuk,
-              jam_pulang: jam.jam_pulang,
-            })),
-        });
+        if (findUser === null) {
+          console.log("find user tidak ditemukan ", item.pin);
+        } else if (findUser !== null) {
+          dataIn.push({
+            user_id: findUser?.id,
+            absen_id: findUser?.absen_id,
+            name: findUser.name,
+            jam_operasional_group_id: findUser?.jam_operasional_group_id,
+            jam_operasional_group_code: findUser?.jam_operasional_group?.code,
+            jam_operasional_group: findUser?.jam_operasional_group?.name,
+            tipe_absen: findTypeAbsen,
+            time: item.time,
+            jam_operasional:
+              findUser?.jam_operasional_group?.jam_operasional?.map((jam) => ({
+                name: jam.name,
+                code: jam.code,
+                jam_masuk: jam.jam_masuk,
+                jam_pulang: jam.jam_pulang,
+              })),
+          });
+        }
+      } catch (error) {
+        return;
       }
     }),
   );
@@ -242,30 +246,34 @@ async function processFilterData(datas) {
   //data out
   await Promise.all(
     filteredDataOut.map(async (item) => {
-      const findUser = await processFindUserByPin(item.pin);
+      try {
+        const findUser = await processFindUserByPin(item.pin);
 
-      const findTypeAbsen = await processFindTipeAbsenByCode(item.status);
+        const findTypeAbsen = await processFindTipeAbsenByCode(item.status);
 
-      if (findUser === null) {
-        console.log("find user tidak ditemukan ", item.pin);
-      } else if (findUser) {
-        dataOut.push({
-          user_id: findUser?.id,
-          absen_id: findUser?.absen_id,
-          name: findUser.name,
-          jam_operasional_group_id: findUser?.jam_operasional_group_id,
-          jam_operasional_group_code: findUser?.jam_operasional_group?.code,
-          jam_operasional_group: findUser?.jam_operasional_group?.name,
-          tipe_absen: findTypeAbsen,
-          time: item.time,
-          jam_operasional:
-            findUser?.jam_operasional_group?.jam_operasional?.map((jam) => ({
-              name: jam.name,
-              code: jam.code,
-              jam_masuk: jam.jam_masuk,
-              jam_pulang: jam.jam_pulang,
-            })),
-        });
+        if (findUser === null) {
+          console.log("find user tidak ditemukan ", item.pin);
+        } else if (findUser) {
+          dataOut.push({
+            user_id: findUser?.id,
+            absen_id: findUser?.absen_id,
+            name: findUser.name,
+            jam_operasional_group_id: findUser?.jam_operasional_group_id,
+            jam_operasional_group_code: findUser?.jam_operasional_group?.code,
+            jam_operasional_group: findUser?.jam_operasional_group?.name,
+            tipe_absen: findTypeAbsen,
+            time: item.time,
+            jam_operasional:
+              findUser?.jam_operasional_group?.jam_operasional?.map((jam) => ({
+                name: jam.name,
+                code: jam.code,
+                jam_masuk: jam.jam_masuk,
+                jam_pulang: jam.jam_pulang,
+              })),
+          });
+        }
+      } catch (error) {
+        return;
       }
     }),
   );
@@ -273,86 +281,96 @@ async function processFilterData(datas) {
   //data in shift
   await Promise.all(
     filteredDataInShift.map(async (item) => {
-      const findUser = await processFindUserByPin(item.pin);
-
-      const findTypeAbsen = await processFindTipeAbsenByCode(item.status);
-
-      if (findUser === null) {
-        console.log("find user tidak ditemukan ", item.pin);
-      } else if (findUser) {
-        dataInShift.push({
-          user_id: findUser?.id,
-          absen_id: findUser?.absen_id,
-          name: findUser.name,
-          jam_operasional_group_id: findUser?.jam_operasional_group_id,
-          jam_operasional_group_code: findUser?.jam_operasional_group?.code,
-          jam_operasional_group: findUser?.jam_operasional_group?.name,
-          tipe_absen: findTypeAbsen,
-          time: item.time,
-          jam_operasional:
-            findUser?.jam_operasional_group?.jam_operasional?.map((jam) => ({
-              name: jam.name,
-              code: jam.code,
-              jam_masuk: jam.jam_masuk,
-              jam_pulang: jam.jam_pulang,
-            })),
-        });
+      try {
+        const findUser = await processFindUserByPin(item.pin);
+        const findTypeAbsen = await processFindTipeAbsenByCode(item.status);
+        if (findUser === null) {
+          console.log("find user tidak ditemukan ", item.pin);
+        } else if (findUser !== null) {
+          dataInShift.push({
+            user_id: findUser?.id,
+            absen_id: findUser?.absen_id,
+            name: findUser.name,
+            jam_operasional_group_id: findUser?.jam_operasional_group_id,
+            jam_operasional_group_code: findUser?.jam_operasional_group?.code,
+            jam_operasional_group: findUser?.jam_operasional_group?.name,
+            tipe_absen: findTypeAbsen,
+            time: item.time,
+            jam_operasional:
+              findUser?.jam_operasional_group?.jam_operasional?.map((jam) => ({
+                name: jam.name,
+                code: jam.code,
+                jam_masuk: jam.jam_masuk,
+                jam_pulang: jam.jam_pulang,
+              })),
+          });
+        }
+      } catch (error) {
+        return;
       }
     }),
 
-    filteredDataOutShift.map(async (item) => {
-      const findUser = await processFindUserByPin(item.pin);
+    // filteredDataOutShift.map(async (item) => {
+    //   try {
+    //     const findUser = await processFindUserByPin(item.pin);
 
-      const findTypeAbsen = await processFindTipeAbsenByCode(item.status);
+    //     const findTypeAbsen = await processFindTipeAbsenByCode(item.status);
 
-      if (findUser) {
-        dataOutShift.push({
-          id: findUser?.id,
-          absen_id: findUser?.absen_id,
-          name: findUser.name,
-          jam_operasional_group_id: findUser?.jam_operasional_group_id,
-          jam_operasional_group_code: findUser?.jam_operasional_group?.code,
-          jam_operasional_group: findUser?.jam_operasional_group?.name,
-          absen: findTypeAbsen,
-          time: item.time,
-          jam_operasional:
-            findUser?.jam_operasional_group?.jam_operasional?.map((jam) => ({
-              name: jam.name,
-              code: jam.code,
-              jam_masuk: jam.jam_masuk,
-              jam_pulang: jam.jam_pulang,
-            })),
-        });
-      }
-    }),
+    //     if (findUser) {
+    //       dataOutShift.push({
+    //         id: findUser?.id,
+    //         absen_id: findUser?.absen_id,
+    //         name: findUser.name,
+    //         jam_operasional_group_id: findUser?.jam_operasional_group_id,
+    //         jam_operasional_group_code: findUser?.jam_operasional_group?.code,
+    //         jam_operasional_group: findUser?.jam_operasional_group?.name,
+    //         absen: findTypeAbsen,
+    //         time: item.time,
+    //         jam_operasional:
+    //           findUser?.jam_operasional_group?.jam_operasional?.map((jam) => ({
+    //             name: jam.name,
+    //             code: jam.code,
+    //             jam_masuk: jam.jam_masuk,
+    //             jam_pulang: jam.jam_pulang,
+    //           })),
+    //       });
+    //     }
+    //   } catch (error) {
+    //     return;
+    //   }
+    // }),
   );
 
-  //data out shift
+  // data out shift
   await Promise.all(
     filteredDataOutShift.map(async (item) => {
-      const findUser = await processFindUserByPin(item.pin);
+      try {
+        const findUser = await processFindUserByPin(item.pin);
 
-      const findTypeAbsen = await processFindTipeAbsenByCode(item.status);
+        const findTypeAbsen = await processFindTipeAbsenByCode(item.status);
 
-      if (findUser === null) {
-        console.log("find user tidak ditemukan ", item.pin);
-      } else if (findUser) {
-        dataOutShift.push({
-          user_id: findUser?.id,
-          absen_id: findUser?.absen_id,
-          name: findUser.name,
-          jam_operasional_group_id: findUser?.jam_operasional_group_id,
-          jam_operasional_group: findUser?.jam_operasional_group?.name,
-          tipe_absen: findTypeAbsen,
-          time: item.time,
-          jam_operasional:
-            findUser?.jam_operasional_group?.jam_operasional?.map((jam) => ({
-              name: jam.name,
-              code: jam.code,
-              jam_masuk: jam.jam_masuk,
-              jam_pulang: jam.jam_pulang,
-            })),
-        });
+        if (findUser === null) {
+          console.log("find user tidak ditemukan ", item.pin);
+        } else if (findUser) {
+          dataOutShift.push({
+            user_id: findUser?.id,
+            absen_id: findUser?.absen_id,
+            name: findUser.name,
+            jam_operasional_group_id: findUser?.jam_operasional_group_id,
+            jam_operasional_group: findUser?.jam_operasional_group?.name,
+            tipe_absen: findTypeAbsen,
+            time: item.time,
+            jam_operasional:
+              findUser?.jam_operasional_group?.jam_operasional?.map((jam) => ({
+                name: jam.name,
+                code: jam.code,
+                jam_masuk: jam.jam_masuk,
+                jam_pulang: jam.jam_pulang,
+              })),
+          });
+        }
+      } catch (error) {
+        return;
       }
     }),
   );
@@ -616,20 +634,32 @@ async function processSetupDataInShiftToUpload(datas) {
     let get_date = new Date(item.time);
     let time_format = date.format(get_date, "HH:mm:ss");
     let date_time_format = date.format(get_date, "YYYY-MM-DD HH:mm:ss");
-    const jam_operasional_checked = await processFindJamOperasionalShift(
+    const jam_operasional_shift_checked = await processFindJamOperasionalShift(
       item,
       "jam_masuk",
     );
-    dataInShiftReadyToUpload.push({
-      user_id: item.user_id,
-      tipe_absen_id: item.tipe_absen.id,
-      tanggal_mulai: date_time_format,
-      tanggal_selesai: date_time_format,
-      pelanggaran_id: jam_operasional_checked.pelanggaran_id,
-      status_inout_id: 1,
-      jam_operasional_id: jam_operasional_checked.jam_operasional.id,
-      is_active: true,
-    });
+
+    if (jam_operasional_shift_checked.jam_operasional !== null) {
+      dataInShiftReadyToUpload.push({
+        user_id: item.user_id,
+        tipe_absen_id: item.tipe_absen.id,
+        tanggal_mulai: date_time_format,
+        tanggal_selesai: date_time_format,
+        pelanggaran_id: jam_operasional_shift_checked.pelanggaran_id,
+        status_inout_id: 1,
+        jam_operasional_id: jam_operasional_shift_checked.jam_operasional.id,
+        is_active: true,
+      });
+    } else {
+      console.log(
+        "jam operasional no tolerance hour",
+        item.name,
+        item.tipe_absen.name,
+        item.time,
+        item.jam_operasional_group,
+        jam_operasional_shift_checked?.jam_operasional?.id,
+      );
+    }
   }
 
   return dataInShiftReadyToUpload;
@@ -642,20 +672,32 @@ async function processSetupDataOutShiftToUpload(datas) {
     let get_date = new Date(item.time);
     let time_format = date.format(get_date, "HH:mm:ss");
     let date_time_format = date.format(get_date, "YYYY-MM-DD HH:mm:ss");
-    const jam_operasional_checked = await processFindJamOperasionalShift(
+    const jam_operasional_shift_checked = await processFindJamOperasionalShift(
       item,
       "jam_pulang",
     );
-    dataInShiftReadyToUpload.push({
-      user_id: item.user_id,
-      tipe_absen_id: item.tipe_absen.id,
-      tanggal_mulai: date_time_format,
-      tanggal_selesai: date_time_format,
-      pelanggaran_id: jam_operasional_checked.pelanggaran_id,
-      status_inout_id: 1,
-      jam_operasional_id: jam_operasional_checked.jam_operasional.id,
-      is_active: true,
-    });
+
+    if (jam_operasional_shift_checked.jam_operasional !== null) {
+      dataInShiftReadyToUpload.push({
+        user_id: item.user_id,
+        tipe_absen_id: item.tipe_absen.id,
+        tanggal_mulai: date_time_format,
+        tanggal_selesai: date_time_format,
+        pelanggaran_id: jam_operasional_shift_checked.pelanggaran_id,
+        status_inout_id: 1,
+        jam_operasional_id: jam_operasional_shift_checked.jam_operasional.id,
+        is_active: true,
+      });
+    } else {
+      console.log(
+        "jam operasional no tolerance hour",
+        item.name,
+        item.tipe_absen.name,
+        item.time,
+        item.jam_operasional_group,
+        jam_operasional_shift_checked?.jam_operasional?.id,
+      );
+    }
   }
 
   return dataInShiftReadyToUpload;
